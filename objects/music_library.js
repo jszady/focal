@@ -63,32 +63,25 @@ const printTracks = function() {
 // t02: Model View Controller by James Dempsey (WWDC 2003)
 const printPlaylist = function(playlistId) {
   let str = "";
-
-  const tracks = library.tracks;
-  const playlists = library.playlists
-
-  for(const key in library.tracks)
+  const playlist = library.playlists;
+  for(const key in playlist)
   {
-    if(key === playlistId)
-    {
-      str += playlistId + ": " + tracks[key].name + " by " + tracks[key].artist + " (" + tracks[key].album + ")"
+    if(key === playlistId){
+     str += playlistId + ": " + playlist[key].name + " - " + playlist[key].tracks.length
     }
   }
-  for(const key in library.playlists)
-  {
-    if(key === playlistId)
-    {
-      str += playlistId + ": " + playlists[key].name +  " - " + playlists[key].tracks.length + " tracks";
-    }
-  }
-
   return str;
 }
+console.log(printPlaylist("p01"));
 
 
 // adds an existing track to an existing playlist
 const addTrackToPlaylist = function(trackId, playlistId) {
   const playlists = library.playlists;
+  
+  if (!playlists[playlistId]) {
+    return "Playlist does not exist.";
+  }
 
   for(const key in playlists)
   {
@@ -98,7 +91,6 @@ const addTrackToPlaylist = function(trackId, playlistId) {
       console.log(playlists[key]);
     }
   }
-
 }
 
 
@@ -121,12 +113,14 @@ const addTrack = function(name, artist, album) {
 
 
 // adds a playlist to the library
-const addPlaylist = function(name) {
-const playlist = library.playlists;
+const addPlaylist = function(name) 
+{
+  const playlist = library.playlists;
 
-const uniqueId = uniqueId();
+  const uniqueId = uniqueId();
 
-playlist[uniqueId] = {id: uniqueId, name: name};
+  playlist[uniqueId] = {id: uniqueId, name: name};
+
 }
 
 
