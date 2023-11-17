@@ -32,31 +32,75 @@ const library = {
 // p02: Other Playlist - 1 tracks
 const printPlaylists = function() {
 
-}
+  let str = "";
 
+  let playlistOnly = library.playlists;
+
+  for (const key in playlistOnly) {
+    str += playlistOnly[key].id + ": " + playlistOnly[key].name + " - " + playlistOnly[key].tracks.length + " tracks\n";
+  }
+  return str;
+}
 
 // prints a list of all tracks, using the following format:
 // t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
 // t02: Model View Controller by James Dempsey (WWDC 2003)
 // t03: Four Thirty-Three by John Cage (Woodstock 1952)
 const printTracks = function() {
+  const tracks = library.tracks;
 
+  let str = "";
+
+  for(const track in tracks) {
+    str += tracks[track].id + ": " + tracks[track].name + " by " + tracks[track].artist + " (" + tracks[track].album + ")\n";
+  }
+  return str;
 }
-
 
 // prints a list of tracks for a given playlist, using the following format:
 // p01: Coding Music - 2 tracks
 // t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
 // t02: Model View Controller by James Dempsey (WWDC 2003)
 const printPlaylist = function(playlistId) {
+  let str = "";
 
+  const tracks = library.tracks;
+  const playlists = library.playlists
+
+  for(const key in library.tracks)
+  {
+    if(key === playlistId)
+    {
+      str += playlistId + ": " + tracks[key].name + " by " + tracks[key].artist + " (" + tracks[key].album + ")"
+    }
+  }
+  for(const key in library.playlists)
+  {
+    if(key === playlistId)
+    {
+      str += playlistId + ": " + playlists[key].name +  " - " + playlists[key].tracks.length + " tracks";
+    }
+  }
+
+  return str;
 }
 
 
 // adds an existing track to an existing playlist
 const addTrackToPlaylist = function(trackId, playlistId) {
+  const playlists = library.playlists;
+
+  for(const key in playlists)
+  {
+    if(playlistId === key)
+    {
+      playlists[key].tracks.push(trackId);
+      console.log(playlists[key]);
+    }
+  }
 
 }
+addTrackToPlaylist("t03", "p01");
 
 
 // generates a unique id
