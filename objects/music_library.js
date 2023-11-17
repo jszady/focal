@@ -100,7 +100,6 @@ const addTrackToPlaylist = function(trackId, playlistId) {
   }
 
 }
-addTrackToPlaylist("t03", "p01");
 
 
 // generates a unique id
@@ -112,13 +111,22 @@ const generateUid = function() {
 
 // adds a track to the library
 const addTrack = function(name, artist, album) {
+  const tracks = library.tracks;
+  const uniqueId = generateUid();
 
-}
+  tracks[uniqueId] = {id: uniqueId, name: name, artist: artist, album: album}
+
+};
+
 
 
 // adds a playlist to the library
 const addPlaylist = function(name) {
+const playlist = library.playlists;
 
+const uniqueId = uniqueId();
+
+playlist[uniqueId] = {id: uniqueId, name: name};
 }
 
 
