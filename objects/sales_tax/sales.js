@@ -21,75 +21,32 @@ const companySalesData = [
     sales: [ 500, 100 ]
   }
 ];
-const getTelusTotalSales = (salesData) => 
-{
+const getTotalSales = (salesData, companyName) => {
+
   let totalSales = 0;
 
-  for (let i = 0; i < salesData.length; i++)
+  for(let i = 0; i < salesData.length; i++)
   {
-    if (salesData[i].name === "Telus")
+    if(salesData[i].name === companyName)
     {
       for(let j = 0; j < salesData[i].sales.length; j++)
       {
-        totalSales += salesData[i].sales[j];
+        totalSales += salesData[i].sales[j]; 
       }
     }
   }
   return totalSales;
 }
-
-const getBombardierTotalSales = (salesData) => {
-  let totalSales = 0;
-  for (let i = 0; i < salesData.length; i++)
-  {
-    if(salesData[i].name === "Bombardier")
-    {
-      for(let j = 0; j < salesData[i].sales.length; j++)
-      {
-        totalSales += salesData[i].sales[j];
-      }
-    }
-  }
-  return totalSales;
-}
-
-const getTelusTax = (salesData, taxData) => 
-{
-  let totalTax = 0;
-  for(let i = 0; i < salesData.length; i++)
-  {
-    if (salesData[i].name === "Telus" && salesData[i].province === "SK")
-    {
-      for(let j = 0; j < salesData[i].sales.length; j++)
-      {
-        totalTax += salesData[i].sales[j] * taxData.SK;
-      }
-    }
-  }
-
-  for(let i = 0; i < salesData.length; i++)
-  {
-    if (salesData[i].name === "Telus" && salesData[i].province === "BC")
-    {
-      for(let j = 0; j < salesData[i].sales.length; j++)
-      {
-        totalTax += salesData[i].sales[j] * taxData.BC;
-      }
-    }
-  }
-  return totalTax;
-}
-const getBombardierTax = (salesData, taxData) =>
-{
+const getTax = (salesData, taxData, companyName) => {
   let totalTax = 0;
 
   for(let i = 0; i < salesData.length; i++)
   {
-    if (salesData[i].name === "Bombardier" && salesData[i].province === "AB")
+    if(salesData[i].name === companyName)
     {
       for(let j = 0; j < salesData[i].sales.length; j++)
       {
-        totalTax += salesData[i].sales[j] * taxData.AB;
+        totalTax += salesData[i].sales[j] * taxData[salesData[i].province];
       }
     }
   }
@@ -97,7 +54,7 @@ const getBombardierTax = (salesData, taxData) =>
 }
 
 calculateSalesTax = (salesData, taxInfo) => {
-  const result = {Telus: {totalSales: getTelusTotalSales(salesData), totalTax: getTelusTax(salesData,taxInfo)}, Bombardier: {totalSales: getBombardierTotalSales(salesData), totalTax: getBombardierTax(salesData, taxInfo)}};
+  const result = {Telus: {totalSales: getTotalSales(salesData, "Telus"), totalTax: getTax(salesData,taxInfo, "Telus")}, Bombardier: {totalSales: getTotalSales(salesData, "Bombardier"), totalTax: getTax(salesData, taxInfo, "Bombardier")}};
 
   return result;
 }
